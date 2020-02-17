@@ -1,10 +1,16 @@
+using VMS.Domain;
+using VMS.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
+using NLog;
 
 namespace VehicleManagementSystem
 {
@@ -20,19 +26,41 @@ namespace VehicleManagementSystem
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      var appSettingsSection = Configuration.GetSection("AppSettings");
+      services.Configure<AppSettings>(appSettingsSection);
 
-      services.AddControllersWithViews();
-
+      services.AddDbContext<ApplicationDbContext>(options =>
+          options.UseSqlServer(Configuration.GetConnectionString("Application")));
       // In production, the React files will be served from this directory
       services.AddSpaStaticFiles(configuration =>
       {
         configuration.RootPath = "ClientApp/build";
       });
+
+      services.AddScoped<IVehicleService, VehicleService>();
+      services
+          .AddMvc()
+          .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
+          .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+     
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+      using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+      {
+        var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate();
+      }
+
+      app.UseCors(option => option
+          .AllowAnyHeader()
+          .AllowAnyMethod()
+          .AllowAnyOrigin()
+          .AllowCredentials());
+
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
@@ -47,14 +75,12 @@ namespace VehicleManagementSystem
       app.UseHttpsRedirection();
       app.UseStaticFiles();
       app.UseSpaStaticFiles();
-
-      app.UseRouting();
-
-      app.UseEndpoints(endpoints =>
+      
+      app.UseMvc(routes =>
       {
-        endpoints.MapControllerRoute(
-                  name: "default",
-                  pattern: "{controller}/{action=Index}/{id?}");
+        routes.MapRoute(
+            name: "default",
+            template: "{controller}/{action=Index}/{id?}");
       });
 
       app.UseSpa(spa =>
