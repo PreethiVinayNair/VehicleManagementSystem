@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using NLog;
+using VMS.Infrastructure;
 
 namespace VehicleManagementSystem
 {
@@ -37,17 +38,16 @@ namespace VehicleManagementSystem
         configuration.RootPath = "ClientApp/build";
       });
 
-      services.AddScoped<IVehicleService, VehicleService>();
-      services
-          .AddMvc()
-          .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
-          .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+      services.AddScoped<IVMSService, VMSService>();
 
-     
+      services
+        .AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson()
+          .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
       using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
       {
@@ -55,12 +55,7 @@ namespace VehicleManagementSystem
         context.Database.Migrate();
       }
 
-      app.UseCors(option => option
-          .AllowAnyHeader()
-          .AllowAnyMethod()
-          .AllowAnyOrigin()
-          .AllowCredentials());
-
+    
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
@@ -75,7 +70,8 @@ namespace VehicleManagementSystem
       app.UseHttpsRedirection();
       app.UseStaticFiles();
       app.UseSpaStaticFiles();
-      
+
+
       app.UseMvc(routes =>
       {
         routes.MapRoute(

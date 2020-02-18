@@ -15,7 +15,7 @@ namespace VMS.Domain
     public virtual DbSet<Vehicle> vehicles { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-      modelBuilder.RemovePluralizingTableNameConvention();
+    //  modelBuilder.RemovePluralizingTableNameConvention();
 
       modelBuilder.Entity<Vehicle>().Property(l => l.Id).HasDefaultValueSql("newsequentialid()");
       
