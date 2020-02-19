@@ -102,7 +102,7 @@ namespace VMS.Services
       updatedVehicle.longitude = model.longitude;
       updatedVehicle.drivermessage = model.drivermessage;
 
-        context.vehicles.Add(updatedVehicle);
+        
    
       context.SaveChanges();
 

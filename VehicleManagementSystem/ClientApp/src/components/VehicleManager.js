@@ -2,12 +2,9 @@
 import AppActions from './../actions/AppActions';
 import bindValueTo, { bindCheckedTo, bindMultiLineToArray } from '../lib/bindValueTo';
 import selectn from 'selectn';
-import { Button, Checkbox, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon } from "react-bootstrap";
+import { Button, Checkbox, Col, ControlLabel, Form, FormControl, FormGroup,Row, Glyphicon } from "react-bootstrap";
 import { NotificationManager } from 'react-notifications';
 import { get, put, post, del } from './../lib/http';
-
-const newLine = `
-`;
 
 
 export class VehicleManager extends Component {
@@ -30,8 +27,6 @@ export class VehicleManager extends Component {
   }
 
   static update(vehicleId) {
-
-
     if (vehicleId === '_') {
       AppActions.updateStates([
         {
@@ -87,7 +82,7 @@ export class VehicleManager extends Component {
         <pre>{JSON.stringify(vehicle, null, 2)}</pre>
         {vehicle && <Form horizontal>
           <FormGroup controlId="Name">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} sm={2} >
               Name
                         </Col>
             <Col sm={10}>
@@ -101,7 +96,7 @@ export class VehicleManager extends Component {
                         </Col>
             <Col sm={10}>
               <FormControl type="number" value={vehicle.speed}
-                onChange={bindValueTo('vehicle.speed')} />
+                onChange={bindValueTo('vehicle.speed')}  />
             </Col>
           </FormGroup>
           <FormGroup controlId="latitude">
@@ -113,6 +108,8 @@ export class VehicleManager extends Component {
                 onChange={bindValueTo('vehicle.latitude')} />
             </Col>
           </FormGroup>
+  
+ 
           <FormGroup controlId="longitude">
             <Col componentClass={ControlLabel} sm={2}>
               Longitude
@@ -122,6 +119,8 @@ export class VehicleManager extends Component {
                 onChange={bindValueTo('vehicle.longitude')} />
             </Col>
           </FormGroup>
+        
+
           <FormGroup controlId="temperature">
             <Col componentClass={ControlLabel} sm={2}>
               Temperature
@@ -139,6 +138,7 @@ export class VehicleManager extends Component {
               <FormControl type="number" value={vehicle.pressure}
                 onChange={bindValueTo('vehicle.pressure')} />
             </Col>
+         
           </FormGroup>
           <FormGroup controlId="drivermessage">
             <Col componentClass={ControlLabel} sm={2}>
