@@ -35,11 +35,11 @@ namespace VMS.Domain.Migrations
                     b.Property<string>("drivermessage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("latitude")
-                        .HasColumnType("float");
+                    b.Property<string>("latitude")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("longitude")
-                        .HasColumnType("float");
+                    b.Property<string>("longitude")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("pressure")
                         .HasColumnType("real");

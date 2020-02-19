@@ -92,19 +92,20 @@ export class VehicleManager extends Component {
           </FormGroup>
           <FormGroup controlId="speed">
             <Col componentClass={ControlLabel} sm={2}>
-              Speed
+              Speed (0-90 Kms/hr)
                         </Col>
             <Col sm={10}>
-              <FormControl type="number" value={vehicle.speed}
+              <FormControl type="number" value={vehicle.speed}  
                 onChange={bindValueTo('vehicle.speed')}  />
             </Col>
           </FormGroup>
+          <h2>Location</h2>
           <FormGroup controlId="latitude">
             <Col componentClass={ControlLabel} sm={2}>
-              Latitude
+              Latitude (0.0000 to 180.0000 N/S)
                         </Col>
             <Col sm={10}>
-              <FormControl type="number" value={vehicle.latitude}
+              <FormControl type="text" value={vehicle.latitude}
                 onChange={bindValueTo('vehicle.latitude')} />
             </Col>
           </FormGroup>
@@ -112,18 +113,18 @@ export class VehicleManager extends Component {
  
           <FormGroup controlId="longitude">
             <Col componentClass={ControlLabel} sm={2}>
-              Longitude
+              Longitude (0.0000 to 180.0000 E/W)
                         </Col>
             <Col sm={10}>
-              <FormControl type="number" value={vehicle.longitude}
+              <FormControl type="text" value={vehicle.longitude}
                 onChange={bindValueTo('vehicle.longitude')} />
             </Col>
           </FormGroup>
         
-
+          <h2>Device Sensors</h2>
           <FormGroup controlId="temperature">
             <Col componentClass={ControlLabel} sm={2}>
-              Temperature
+              Temperature (85 to 104 Centigrade)
                         </Col>
             <Col sm={10}>
               <FormControl type="number" value={vehicle.temperature}
@@ -132,7 +133,7 @@ export class VehicleManager extends Component {
           </FormGroup>
           <FormGroup controlId="Pressure">
             <Col componentClass={ControlLabel} sm={2}>
-              Pressure
+              Pressure (30 to 100 psi)
                         </Col>
             <Col sm={10}>
               <FormControl type="number" value={vehicle.pressure}
@@ -140,6 +141,7 @@ export class VehicleManager extends Component {
             </Col>
          
           </FormGroup>
+          <h2>Vehicle Driver Information</h2>
           <FormGroup controlId="drivermessage">
             <Col componentClass={ControlLabel} sm={2}>
               Driver's Message

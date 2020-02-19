@@ -10,7 +10,7 @@ using VMS.Domain;
 namespace VMS.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200219053533_coretex")]
+    [Migration("20200219122612_coretex")]
     partial class coretex
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,11 +37,11 @@ namespace VMS.Domain.Migrations
                     b.Property<string>("drivermessage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("latitude")
-                        .HasColumnType("float");
+                    b.Property<string>("latitude")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("longitude")
-                        .HasColumnType("float");
+                    b.Property<string>("longitude")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("pressure")
                         .HasColumnType("real");

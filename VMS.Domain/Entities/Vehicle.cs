@@ -13,8 +13,8 @@ namespace VMS.Domain.Entities
     public Guid Id { get; set; }
     public string Name { get; set; }
     public int speed { get; set; }
-    public double latitude { get; set; }
-    public double longitude { get; set; }
+    public string latitude { get; set; }
+    public string longitude { get; set; }
     public float temperature { get; set; }
     public float pressure { get; set; }
     public DateTime Utc { get; set; } 
