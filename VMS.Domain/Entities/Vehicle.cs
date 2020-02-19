@@ -11,7 +11,7 @@ namespace VMS.Domain.Entities
     //Vehicle driver’s messages
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
-
+    public string Name { get; set; }
     public int speed { get; set; }
     public double latitude { get; set; }
     public double longitude { get; set; }
@@ -21,6 +21,6 @@ namespace VMS.Domain.Entities
 
     [MaxLength]
     public string drivermessage { get; set; }
-    public string Name { get; set; }
+
   }
 }

@@ -10,8 +10,8 @@ using VMS.Domain;
 namespace VMS.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200218002203_vehicle")]
-    partial class vehicle
+    [Migration("20200219053533_coretex")]
+    partial class coretex
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace VMS.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("newsequentialid()");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Utc")
                         .HasColumnType("datetime2");

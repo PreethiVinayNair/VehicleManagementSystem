@@ -36,7 +36,10 @@ export class NavMenu extends Component {
         <Navbar.Collapse>
           <Nav>
             <LinkContainer to={'/'} exact>
-              <NavItem><Glyphicon glyph='home' /> VehicleManagementSystem</NavItem>
+              <NavItem><Glyphicon glyph='home' /> Home</NavItem>
+            </LinkContainer>
+            <LinkContainer to={'/vehiclemanagementsystem'} exact>
+              <NavItem><Glyphicon glyph='th-list' /> VehicleManagementSystem</NavItem>
             </LinkContainer>
 
           </Nav>

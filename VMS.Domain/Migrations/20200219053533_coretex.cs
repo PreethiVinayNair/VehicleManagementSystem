@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VMS.Domain.Migrations
 {
-    public partial class vehicle : Migration
+    public partial class coretex : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,6 +12,7 @@ namespace VMS.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false, defaultValueSql: "newsequentialid()"),
+                    Name = table.Column<string>(nullable: true),
                     speed = table.Column<int>(nullable: false),
                     latitude = table.Column<double>(nullable: false),
                     longitude = table.Column<double>(nullable: false),

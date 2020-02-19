@@ -26,6 +26,9 @@ namespace VMS.Domain.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("newsequentialid()");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Utc")
                         .HasColumnType("datetime2");
 

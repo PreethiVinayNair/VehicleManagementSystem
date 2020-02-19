@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using VMS.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
 
 namespace VMS.Controllers
 {
@@ -19,39 +19,56 @@ namespace VMS.Controllers
 
       [HttpGet]
       [Route("")]
-      public async Task<IActionResult> Get()
+      public IActionResult GetVehiclesList()
       {
-        var vehicles = await vehicleManagementService.GetVehicles();
+        var vehicles = vehicleManagementService.GetVehiclesList();
 
         return Ok(vehicles);
       }
 
 
-      [HttpGet]
-      [Route("{vehicleName}")]
-      public async Task<IActionResult> Get(string vehicleName)
-      {
-        var fields = await vehicleManagementService.VehicleFields(vehicleName);
+    [HttpGet]
+    [Route("{id}")]
+    public IActionResult Get(Guid id)
+    {
+      var vehicle = vehicleManagementService.GetVehicleById(id);
 
-        return Ok(fields);
+      if (vehicle == null)
+      {
+        return NotFound();
       }
 
+      return Ok(vehicle);
+    }
 
-      [HttpPost]
-      [Route("createVehicleAsync")]
-      public async Task<IActionResult> CreateVehicle(VehicleModel model)
+    [HttpPost]
+      [Route("")]
+      public IActionResult CreateVehicle([FromBody] VehicleModel model)
       {
-        await vehicleManagementService.CreateVehicle(model);
+      var vehicle = vehicleManagementService.CreateVehicle(model);
 
-        return Ok(new object { });
+      return Ok(new { vehicle.Id });
+    }
+    [HttpPut]
+    [Route("{id}")]
+    public IActionResult Put([FromBody] VehicleModel model)
+    {
+     var vehicle= vehicleManagementService.UpdateVehicle(model);
+
+      if (vehicle == null)
+      {
+        return NotFound();
       }
 
+      return Ok(new { vehicle.Id });
+    }
 
-      [HttpDelete]
-      [Route("{vehicleName}")]
-      public IActionResult Delete(string vehicleName)
+
+    [HttpDelete]
+    [Route("{id}")]
+    public IActionResult DeleteVehicle(Guid id)
       {
-        vehicleManagementService.DeleteVehicle(vehicleName);
+        vehicleManagementService.DeleteVehicle(id);
 
         return Ok();
       }
