@@ -6,10 +6,15 @@ namespace VMS.Services
 {
   public class VehicleModel
   {
+    public Guid Id { get; set; }
     public string Name { get; set; }
-    public string Description { get; set; }
-    public string DataSourceName { get; set; }
-    public string TargetIndexName { get; set; }
-    public string SkillSetName { get; set; }
+    public int speed { get; set; }
+    public double latitude { get; set; }
+    public double longitude { get; set; }
+    public float temperature { get; set; }
+    public float pressure { get; set; }
+    public DateTime Utc { get; set; }
+    public string drivermessage { get; set; }
   }
 }
+

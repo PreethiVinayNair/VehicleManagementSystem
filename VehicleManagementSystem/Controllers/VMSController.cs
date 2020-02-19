@@ -21,7 +21,7 @@ namespace VMS.Controllers
       [Route("")]
       public async Task<IActionResult> Get()
       {
-        var vehicles = await vehicleManagementService.GetVehiclesAsync();
+        var vehicles = await vehicleManagementService.GetVehicles();
 
         return Ok(vehicles);
       }
@@ -31,7 +31,7 @@ namespace VMS.Controllers
       [Route("{vehicleName}")]
       public async Task<IActionResult> Get(string vehicleName)
       {
-        var fields = await vehicleManagementService.VehicleFieldsAsync(vehicleName);
+        var fields = await vehicleManagementService.VehicleFields(vehicleName);
 
         return Ok(fields);
       }
@@ -39,19 +39,19 @@ namespace VMS.Controllers
 
       [HttpPost]
       [Route("createVehicleAsync")]
-      public async Task<IActionResult> CreateVehicleAsync(VehicleModel model)
+      public async Task<IActionResult> CreateVehicle(VehicleModel model)
       {
-        await vehicleManagementService.CreateVehicleAsync(model);
+        await vehicleManagementService.CreateVehicle(model);
 
         return Ok(new object { });
       }
 
 
       [HttpDelete]
-      [Route("{indexerName}")]
-      public async Task<IActionResult> Delete(string vehicleName)
+      [Route("{vehicleName}")]
+      public IActionResult Delete(string vehicleName)
       {
-        await vehicleManagementService.DeleteVehicleAsync(vehicleName);
+        vehicleManagementService.DeleteVehicle(vehicleName);
 
         return Ok();
       }

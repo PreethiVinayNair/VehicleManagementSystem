@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using NLog;
 using VMS.Infrastructure;
+using VMS.Middleware;
 
 namespace VehicleManagementSystem
 {

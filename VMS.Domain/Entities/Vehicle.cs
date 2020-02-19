@@ -9,7 +9,7 @@ namespace VMS.Domain.Entities
     // Vehicle Speed, latitude and longitude.
     //Measurements from other device sensors in the vehicle like temperature, pressure etc.
     //Vehicle driver’s messages
-    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
 
     public int speed { get; set; }
@@ -21,5 +21,6 @@ namespace VMS.Domain.Entities
 
     [MaxLength]
     public string drivermessage { get; set; }
+    public string Name { get; set; }
   }
 }

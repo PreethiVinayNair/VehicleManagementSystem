@@ -10,9 +10,9 @@ namespace VMS.Services
   {
 
     Task<object> createVehicle(IDictionary<string, StringValues> vehicleArguments);
-    Task CreateVehicleAsync(VehicleModel model);
-    Task DeleteVehicleAsync(string vehicleName);
-    Task<object> GetVehiclesAsync();
-    Task<object> VehicleFieldsAsync(string vehicleName);
+    Task CreateVehicle(VehicleModel model);
+    void DeleteVehicle(string vehicleName);
+    Task<object> GetVehicles();
+    Task<object> VehicleFields(string vehicleName);
   }
 }

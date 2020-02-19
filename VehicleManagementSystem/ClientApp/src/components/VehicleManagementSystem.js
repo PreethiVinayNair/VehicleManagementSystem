@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import AppActions from './../actions/AppActions';
-import { Button, ControlLabel, Form, FormControl, FormGroup, Col } from "react-bootstrap";
+import { Button,  Form, FormGroup,ControlLabel,FormControl,  Col } from "react-bootstrap";
 import bindValueTo from "../lib/bindValueTo";
 import { NotificationManager } from 'react-notifications';
 import { get, post } from "../lib/http";
@@ -11,7 +11,12 @@ export class VehicleManagementSystem extends Component {
   constructor(props) {
     super(props);
     VehicleManagementSystem.update();
+    this.handleChange = this.handleChange.bind(this);
   }
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
 
   static update() {
     get('api/vehiclemanagement', (data) => AppActions.updateStates([
@@ -19,6 +24,7 @@ export class VehicleManagementSystem extends Component {
       { statePath: 'loading', data: false },
       {
         statePath: 'vehicle', data: {
+          name: '',
           speed: '',
           latitude: '',
           longitude: '',
@@ -68,55 +74,68 @@ export class VehicleManagementSystem extends Component {
         {contents}
 
         {vehicle && <Form horizontal>
-          <Form.Group controlId="Name">   
-            <Form.Label>Name</Form.Label>
+          <FormGroup controlId="Name">
+            <Col componentClass={ControlLabel} sm={2}>
+              Name
+                        </Col>
             <Col sm={10}>
-              <Form.Control type="text" value={vehicle.name}
-                onChange={bindValueTo('vehicle.name')} />
+              <FormControl type="text" onChange={bindValueTo('vehicle.name')} />
             </Col>
-          </Form.Group>
-          <Form.Group controlId="Speed">     
-            <Form.Label>Speed</Form.Label>
+          </FormGroup>
+          <FormGroup controlId="Speed">
+            <Col componentClass={ControlLabel} sm={2}>
+              Speed
+                        </Col>
             <Col sm={10}>
-              <Form.Control type="text" value={vehicle.speed}
+              <FormControl type="number"
                 onChange={bindValueTo('vehicle.speed')} />
             </Col>
-          </Form.Group>
-          <Form.Group controlId="latitude">
-            <Form.Label>Latitude</Form.Label>
+          </FormGroup>
+          <FormGroup controlId="Latitude">
+            <Col componentClass={ControlLabel} sm={2}>
+              Latitude
+                        </Col>
             <Col sm={10}>
-              <Form.Control type="text" value={vehicle.latitude}
+              <FormControl type="number" 
                 onChange={bindValueTo('vehicle.latitude')} />
             </Col>
-          </Form.Group>
-          <Form.Group controlId="longitude">
-            <Form.Label>Longitude</Form.Label>
+          </FormGroup>
+          <FormGroup controlId="Longitude">
+            <Col componentClass={ControlLabel} sm={2}>
+              Longitude
+                        </Col>
             <Col sm={10}>
-              <Form.Control type="text" value={vehicle.longitude}
+              <FormControl type="number" 
                 onChange={bindValueTo('vehicle.longitude')} />
             </Col>
-          </Form.Group>
-          <Form.Group controlId="temperature">
-            <Form.Label>Temperature</Form.Label>
+          </FormGroup>
+          <FormGroup controlId="Temperature">
+            <Col componentClass={ControlLabel} sm={2}>
+              Temperature
+                        </Col>
             <Col sm={10}>
-              <Form.Control type="text" value={vehicle.temperature}
+              <FormControl type="number" 
                 onChange={bindValueTo('vehicle.temperature')} />
             </Col>
-          </Form.Group>
-          <Form.Group controlId="pressure">
-            <Form.Label>pressure</Form.Label>
+          </FormGroup>
+          <FormGroup controlId="Pressure">
+            <Col componentClass={ControlLabel} sm={2}>
+              Pressure
+                        </Col>
             <Col sm={10}>
-              <Form.Control type="text" value={vehicle.pressure}
+              <FormControl type="number" 
                 onChange={bindValueTo('vehicle.pressure')} />
             </Col>
-          </Form.Group>
-          <Form.Group controlId="drivermessage">
-            <Form.Label>Message to Driver</Form.Label>
+          </FormGroup>
+          <FormGroup controlId="DriverMessage">
+            <Col componentClass={ControlLabel} sm={2}>
+              Driver's Message
+                        </Col>
             <Col sm={10}>
-              <Form.Control type="text" value={vehicle.drivermessage}
+              <FormControl type="text" 
                 onChange={bindValueTo('vehicle.drivermessage')} />
             </Col>
-          </Form.Group>
+          </FormGroup>
 
           <Button onClick={() => this.createVehicle()}>Create Vehicle Data</Button>
           <Button onClick={() => this.updateVehicle()}>Update Vehicle Data</Button>
